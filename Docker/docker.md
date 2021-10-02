@@ -94,7 +94,11 @@ docker run -id --restart=always --privileged=true \
    # http.cors.allow-origin：当设置允许跨域，默认为*，表示支持所有域名，如果我们只是允许某些网站能访问，那么可以使用正则表达式
    ~~~
 
-   
+
+
+### docker安装rabbitmq
+
+
 
 
 
