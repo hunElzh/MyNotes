@@ -112,7 +112,7 @@ public @interface MyAnnotation{
 
 ## 属性的数据类型以及特别的属性：value和数组
 
-属性的数据类型
+### 属性的数据类型
 
 - 八种基本数据类型（short、int、long、float、double、char、boolean、byte）
 - String
@@ -121,23 +121,157 @@ public @interface MyAnnotation{
 - 注解类型
 - 以上类型的一维数组
 
+下面这张图就展现了注解属性的数据类型的概括
+
+![H_KQ6BS15SPR14R2WJO](E:\Java\GitRepository\MyNotes\img\H_KQ6BS15SPR14R2WJO.png)
+
+
+
+### 两个特殊属性
+
+#### value属性
+
+> 如果注解的属性只有一个，并且叫value()，那么在使用该注解时，可以不用指定属性名，因为默认就是给value属性赋值
+
+如下图所示，如果注解中只有一个属性，并且属性名为 value 时，此时使用该注解时就不需要声明属性名，直接输入属性值默认赋值给注解中的属性。
+
+![EX0`UNFRB6WL@28QGAZB](E:\Java\GitRepository\MyNotes\img\EX0`UNFRB6WL@28QGAZB.png)
+
+#### 数组属性
+
+> 如果数组的属性元素只有一个，可以省略大括号{}
+
+![I$MBPEH9GN8OQ`R48_HDK](E:\Java\GitRepository\MyNotes\img\I$MBPEH9GN8OQ`R48_HDK.png)
+
+
+
+### 用public static final修饰注解属性
+
+> 当用public static final修饰注解属性时，该注解的属性可以被当作值被其他注解引用（下例是定时任务的格式）
+
+![GB_UQ3W_IMVYOP8V_@BM](E:\Java\GitRepository\MyNotes\img\GB_UQ3W_IMVYOP8V_@BM.png)
 
 
 
 
 
+## 巩固注解使用，山寨Junit和JPA
+
+### 山寨Junit
+
+> 牢记定义注解、使用注解、读取注解这个三角结构，用到注解的地方必然存在三角关系
+
+#### 代码结构
+
+![zzzzzz3cv16as4f61a61d](E:\Java\GitRepository\MyNotes\img\zzzzzz3cv16as4f61a61d.png)
+
+#### 案例代码
+
+1. 定义注解——三个枚举类
+
+~~~ java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface MyBefore {
+}
+~~~
+
+~~~ java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface MyTest {
+}
+~~~
+
+~~~ java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface MyAfter {
+}
+~~~
+
+2. 使用注解
 
 
+~~~ java
+public class EmployeeDAOTest {
+
+    @MyBefore
+    public void init() {
+        System.out.println("init......");
+    }
+
+    @MyAfter
+    public void destroy() {
+        System.out.println("destory......");
+    }
+
+    @MyTest
+    public void testSave() {
+        System.out.println("test save......");
+    }
+
+    @MyTest
+    public void testDelete() {
+        System.out.println("test delete......");
+    }
+
+}
+~~~
+
+3. 读取注解
 
 
+~~~ java
+public class MyJunitFrameWork {
+    public static void main(String[] args) throws Exception, InstantiationException {
+        //1. 找到测试类的字节码：EmoployeeDAOTest
+        Class clazz = EmployeeDAOTest.class;
+        Object obj = clazz.newInstance();
 
+        //2. 获取EmployeeDAOTest类中所有的公共方法
+        Method[] methods = clazz.getMethods();
 
+        //3. 迭代出每一个Method对象，判断哪些方法上使用了@MyBefore/@MyAfter/@MyTest注解
+        List<Method> myBeforeList = new ArrayList<>();
+        List<Method> myTestList = new ArrayList<>();
+        List<Method> myAfterList = new ArrayList<>();
+        //遍历所有方法，当方法上的注解对应上时，就将其存入对应 ArrayList 集合中
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(MyBefore.class)) {
+                myBeforeList.add(method);
+            }
+            if (method.isAnnotationPresent(MyTest.class)) {
+                myTestList.add(method);
+            }
+            if (method.isAnnotationPresent(MyAfter.class)) {
+                myAfterList.add(method);
+            }
+        }
 
+        //执行方法测试，每次运行@Test都要运行@Before和@After
+        for (Method testMethod : myTestList) {
+            // 先执行@MyBefore的方法
+            for (Method beforeMethod : myBeforeList) {
+                beforeMethod.invoke(obj);
+            }
+            // 测试方法
+            testMethod.invoke(obj);
+            // 最后执行@MyAfter的方法
+            for (Method afterMethod : myAfterList) {
+                afterMethod.invoke(obj);
+            }
+            System.out.println("--------------");
+        }
+    }
+}
+~~~
 
+#### 运行结果
 
+与我们预期的运行结果一致，当@Test注解周围都会存在初始化和销毁方法
 
-
-
+![TD88%DV8R_4T9XMZH](E:\Java\GitRepository\MyNotes\img\TD88%DV8R_4T9XMZH.png)
 
 
 
