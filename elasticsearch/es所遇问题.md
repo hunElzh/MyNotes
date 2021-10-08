@@ -1,3 +1,17 @@
+### elastic search简介
+
+Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 Apache Lucene™基础之上。 Lucence仅仅知识一个库，并且Lucence及其复杂，而es充分发挥其功能，并将其直接集成到应用中。es通过隐藏Lucenne的复杂性，并用一高简单一致的RESTful 风格的API将其替代。
+
+elastic search可以被这样准确的形容：
+
+- 一个分布式的实时文档存储，每个字段可以被索引与搜索
+- 一个分布式实时分析搜索引擎
+- 能胜任上百个服务节点的扩展，并支持PB级别的结构化或者非结构化数据
+
+
+
+
+
 ### es 文件目录结构
 
 ~~~ markdown

@@ -1,0 +1,89 @@
+### es简介
+
+ Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 Apache Lucene 基础之上。 Lucene 可以说是当下最先进、高性能、全功能的搜索引擎库—无论是开源还是私有。 
+
+然而，Elasticsearch 不仅仅是 Lucene，并且也不仅仅只是一个全文搜索引擎。 它可以被下面这样准确的形容：
+
+- 一个分布式的实时文档存储，*每个字段* 可以被索引与搜索
+- 一个分布式实时分析搜索引擎
+- 能胜任上百个服务节点的扩展，并支持 PB 级别的结构化或者非结构化数据
+
+
+
+### es安装单机环境
+
+- 拉取镜像
+
+  > docker pull elasticsearch:6.8.8
+
+- 运行容器
+
+  ~~~ shell
+  docker run -id --restart=always --privileged=true \
+  -v /root/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+  -e "ES_JAVA_OPTS=-Xms128m -Xmx128m" --name elasticsearch \
+  -p 9200:9200 -p 9300:9300 \
+  -e "discovery.type=single-node" elasticsearch:6.8.8
+  ~~~
+
+  - -v 配置数据卷
+
+  - -p 分配节点
+    - 9200：客户端访问es的端口（HTTP协议）
+    - 9300：集群之间通讯端口，如果这个端口没有打开，节点将无法形成一个集群（TCP协议，速度更快）
+
+- 检测es是否运行
+
+  - 在shell中执行 curl 'http://localhost:9200/?pretty' ，返回数据，es启动成功
+  - 访问url：'http://localhost:9200/?pretty'，返回页面数据，es启动成功
+
+
+
+### 安装kibana
+
+> kibana5.x版本之后Dev Tools代替了kibana的功能
+
+- 拉取镜像
+
+  > docker pull kibana:6.8.8（注意与es版本一致）
+
+- 配置kibana配置文件
+
+  ~~~  shell
+  mkdir -p /data/elk7/kibana/config/
+  vi /data/elk7/kibana/config/kibana.yml
+  ~~~
+
+  文件内容如下
+
+  ~~~ vim
+  #
+  # ** THIS IS AN AUTO-GENERATED FILE **
+  #
+  
+  # Default Kibana configuration for docker target
+  server.name: kibana
+  server.host: "0"
+  elasticsearch.hosts: [ "http://x.x.x.x:9200" ]
+  xpack.monitoring.ui.container.elasticsearch.enabled: true
+  ~~~
+
+- 启动kibana容器
+
+  ~~~ shell
+  docker run -d \
+    --name=kibana \
+    --restart=always \
+    -p 5601:5601 \
+    -v /data/elk7/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml \
+    kibana:6.8.8
+  ~~~
+
+  - -v 配置容器本地数据卷
+
+- 检测kibana是否成功启动
+
+  - 访问ip+端口，弹出界面说明安装成功
+
+    
+
