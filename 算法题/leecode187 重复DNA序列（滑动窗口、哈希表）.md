@@ -6,6 +6,17 @@
 
 
 
+> 示例 1：
+>
+> 输入：s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+> 输出：["AAAAACCCCC","CCCCCAAAAA"]
+> 示例 2：
+>
+> 输入：s = "AAAAAAAAAAAAA"
+> 输出：["AAAAAAAAAA"]
+
+
+
 ### 我的题解
 
 > 关键，利用set.add()方法的特性，返回true说明重复，并将该元素加入返回的列表中；否则说明不重复，不加入
