@@ -45,3 +45,7 @@ Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elast
 我们要装elasticsearch6.8版本,所以要装jdk1.8,elasticsearch版本在7.0以后需要jdk1.9以上,安装是会出现和jdk不匹配
 ~~~
 
+~~~markdown
+3. illegal_argument_exception
+"field": "interests"，这种写法会报错，将其改成"field": "interests.keyword"
+~~~
