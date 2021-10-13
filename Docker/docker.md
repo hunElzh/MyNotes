@@ -69,16 +69,18 @@ mysql:5.7
 ~~~ shell
 docker run -id --restart=always --privileged=true \
 -v /root/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
--e "ES_JAVA_OPTS=-Xms128m -Xmx128m" --name elasticsearch \
+-e "ES_JAVA_OPTS=-Xms128m -Xmx128m" --name es-node2 \
 -p 9200:9200 -p 9300:9300 \
 -e "discovery.type=single-node" elasticsearch:6.8.8
+
+-v 宿主机目录 : es目录
 ~~~
 
 -v把宿主机的/root/elk/elasticsearch/plugins目录挂载到ElasticSearch的plugins目录，后面安装IK分词器时会用到。
 
 配置es集群环境
 
-1. 进入docker容器内部：docker exec -it elasticsearch /bin/bash
+1. 进入docker容器内部：docker exec -it `<name>` /bin/bash
 
 2. 进入/usr/share/elasticsearch/config目录，编辑目录下的elasticsearch.yml，编写es集群环境配置
 
@@ -113,6 +115,16 @@ docker run -id --restart=always --privileged=true \
 <img src="E:\Study\Mynotes\MyNotes\img\J$OBQJ73@A@ZM7HK.png" alt="J$OBQJ73@A@ZM7HK" style="zoom:67%;" />
 
 
+
+
+
+### 安装docker-compose
+
+~~~ shell
+sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+docker-compose --version  显示docker-compose版本
+~~~
 
 
 
