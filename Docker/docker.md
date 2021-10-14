@@ -98,6 +98,18 @@ docker run -id --restart=always --privileged=true \
 
 
 
+### docker安装redis
+
+- 拉取redis镜像
+
+  > docker pull redis:5.0
+
+- 创建容器，设置端口映射和访问密码
+
+  	>docker run -id --restart=always --privileged=true --name=redis -p 6379:6379 redis:5.0 --requirepass "lzh151151"
+
+
+
 ### docker安装rabbitmq
 
 
