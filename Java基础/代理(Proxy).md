@@ -2,7 +2,7 @@
 
 > 代理是一种设计模式，提供了对目标对象的简介访问方式，即类通过代理访问目标对象。如此便于在目标对象方法实现的基础上增加额外的功能操作——前拦截，后拦截等，以满足自身业务需求。
 
-![v2-6e2fa8c8c02e0f04a601cdd951045f82_720w](E:\Java\GitRepository\MyNotes\img\v2-6e2fa8c8c02e0f04a601cdd951045f82_720w.png)
+![v2-6e2fa8c8c02e0f04a601cdd951045f82_720w](..\img\v2-6e2fa8c8c02e0f04a601cdd951045f82_720w.png)
 
 常用的代理方式可以粗略划分为：静态代理和动态代理。
 
@@ -14,7 +14,7 @@
 
 > 在没有应用代理的设计模式之前，我们访问对象的方法如下图所示
 
-![0C~BG9$EEHTSVT2X7KR6KJ](E:\Java\GitRepository\MyNotes\img\0C~BG9$EEHTSVT2X7KR6KJ.png)
+![0C~BG9$EEHTSVT2X7KR6KJ](..\img\0C~BG9$EEHTSVT2X7KR6KJ.png)
 
 现在有一个计算器类，想在其运算开始和结束时打印日志
 
@@ -479,7 +479,7 @@ public class useNewProxyInstance {
 4. 在第3步中的内容中实现 invoke() 方法，在其中编写增强代码并指定目标对象
 5. 在外部实例化一个目标对象，当目标对象调用方法时，会调用代理类中的同名方法，而代理类中调用方法时会执行 invoke() 中的代码，所以目标对象调用方法时最终调用的时 invoke() 中的代码。
 
-![zzzzz234349723479](E:\Java\GitRepository\MyNotes\img\zzzzz234349723479.png)
+![zzzzz234349723479](..\img\zzzzz234349723479.png)
 
 
 
