@@ -29,6 +29,7 @@
 
 ```java
 public static int removeDuplicates(int[] nums) {
+    // 特判
     if (nums.length == 0 || nums == null) {
         return 0;
     }

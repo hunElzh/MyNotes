@@ -232,11 +232,13 @@ public class InterfaceClassDiff {
 
     public static void main(String[] args) {
 
-        //得到Calculator接口的Calss对象（注意，此时不是new创建了一个Class对象，而是让虚拟机加载并创建Class对象）
+        //得到Calculator接口的Calss对象
         Class<Caluculator> calculatorClazz = Caluculator.class;
-        //获取对应class对象的 构造器 和 方法
+            
+        //获取对象的 构造器 和 方法
         Constructor<?>[] calculatorClazzConstructors = calculatorClazz.getConstructors();
         Method[] calculatorClazzMethods = calculatorClazz.getMethods();
+        
         System.out.println("------接口Class的构造器信息------");
         printClassInfo(calculatorClazzConstructors);
         System.out.println("\n");
@@ -244,9 +246,13 @@ public class InterfaceClassDiff {
         printClassInfo(calculatorClazzMethods);
         System.out.println("\n");
 
+        //得到CalculatorImpl实现类的Calss对象
         Class<CalculatorImpl> calculatorImplClazz = CalculatorImpl.class;
+        
+        //获取对象的 构造器 和 方法
         Constructor<?>[] calculatorImplClazzConstructors = calculatorImplClazz.getConstructors();
         Method[] calculatorImplClazzMethods = calculatorImplClazz.getMethods();
+        
         System.out.println("------接口Class的构造器信息------");
         printClassInfo(calculatorImplClazzConstructors);
         System.out.println("\n");
@@ -280,8 +286,8 @@ public class InterfaceClassDiff {
 
 观察 接口的Class类 和 实例类的Class类 的运行结果可以很明确地观察出 接口 和 实例类 的区别
 
-1. 接口Class对象没有构造器，所以 Calculator 不能直接 new 对象
-2. 实现类Class对象有构造方法，所以 CalculatorImpl 可以直接 new 对象
+1. 接口的Class没有构造器，所以 Calculator 不能直接 new 对象
+2. 实现类的Class有构造方法，所以 CalculatorImpl 可以直接 new 对象
 3. 接口Class对象中只有 add() 方法
 4. 实现类Class对象中除了有实现的 add() 方法，还有继承自 Object类 中的方法，还能有其自定义的方法（虽然再上图中没体现）
 
@@ -394,7 +400,7 @@ public class GetProxyInstance {
         //获取到唯一有参的构造器 $Proxy(InvocationHandler h)
         Constructor<?> constructor = calculatorProxyClazz.getConstructor(InvocationHandler.class);
 
-        //用构造器执行构造方法，得到 代理对象。此时InvocationHndler作为参数传入
+        //用构造器执行构造方法，得到 代理对象。此时InvocationHandler作为参数传入
         Calculator calculatorImpl = (Calculator) constructor.newInstance(new InvocationHandler() {
             @Override
             /**
