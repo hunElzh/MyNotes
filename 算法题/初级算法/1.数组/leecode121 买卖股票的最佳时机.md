@@ -31,28 +31,17 @@
 
 ### 我的题解
 
-```java
-public static int maxProfit(int[] prices) {
-    if (prices.length == 0) {
-        return 0;
+~~~ java
+public int maxProfit(int[] prices) {
+    // 记录动态过程中的最大利润
+    int maxGet = Integer.MIN_VALUE;
+    // 记录最小前缀
+    int minPrice = prices[0];
+    for (int i = 1; i < prices.length; i++) {
+        maxGet = Math.max(maxGet, prices[i] - minPrice);
+        minPrice = Math.min(minPrice, prices[i]);
     }
-    int today = 0;
-    int tomorrow;
-    int maxProfit = 0;
-    for (tomorrow = 1; tomorrow < prices.length; tomorrow++) {
-        if (prices[tomorrow] >= prices[today]) {
-            maxProfit += prices[tomorrow] - prices[today];
-            today = tomorrow;
-        } else {
-            today = tomorrow;
-        }
-    }
-    return maxProfit;
+    return maxGet > 0 ? maxGet : 0;
 }
-```
+~~~
 
-
-
-### 算法思想
-
-动态规划（并不明白），当后一天比前一天高，卖出股票，否则不卖；
