@@ -33,7 +33,7 @@
 
 
 
-### docker安装mysql
+### docker运行mysql
 
 > 注意服务器端口是否开放；
 >
