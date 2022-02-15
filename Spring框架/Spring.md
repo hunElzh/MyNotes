@@ -1,3 +1,7 @@
+## SpringBean的生命周期
+
+
+
 ## Spring的IOC和AOP机制
 
 ### IOC
@@ -82,3 +86,65 @@ AOP通过分析程序结构的关注点来完善面向对象编程OOP，AOP相�
 9. ViewResolver 将 ModelAndView 解析后返回给具体的 View
 10. DispatcherServlet 根据 View 来对视图进行渲染
 11. DispatcherServlet 响应用户。
+
+
+
+
+
+## 常见面试题
+
+#### AOP 底层原理
+
+Spring AOP 底层是通过JDK动态代理或CGlib动态代理，默认情况是JDK动态代理
+
+- JDK：仅为接口创建动态代理实例，而不能对类创建动态代理实例。通过反射机制获取目标类的接口信息，生成了一个代理接口的动态代理类，再通过反射机制获得动态代理类的构造函数，利用构造函数生成动态代理类的实例对象，并在调用具体方法前调用invokeHandler方法来处理目标方法（基于接口）
+- CGlib：把被代理对象类的class文件加载进来，修改其字节码生成子类。（基于子类）
+
+
+
+#### Spring Bean 的生命周期
+
+- 读取上下文或配置中的bean扩展实现
+- 通过反射创建bean实例对象
+- 依赖注入创建的bean，并且会执行一些beanPostPorcessor中的扩展回调
+- 将bean保存至容器当中，此时bean会创建，在此阶段会执行一些init-method和beanPostProcessor中的后置处理方法
+- 销毁bean，并且回调一些定义的销毁前方法
+
+
+
+#### Spring 的三级缓存
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
