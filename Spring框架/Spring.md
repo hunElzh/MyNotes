@@ -68,9 +68,9 @@ AOP通过分析程序结构的关注点来完善面向对象编程OOP，AOP相�
 
 - DispatcherServlet：前端控制器。SpringMVC整个流程的核心，很多的请求转发都要经过它
 - HandlerMapping：处理器映射器。用于处理 DispatcherServlet 转发而来的请求，根据请求返回对应的 Handler 给 DispatcherServlet。
-- Handler：处理器。本质上就是 Controller
+- Handler：处理器。可以理解为 Controller
 - HandlerAdapter：处理器适配器。DispatcherServlet 请求 HandlerAdapter 根据不同规则（和请求类型对应？）执行不同类型的 Handler，执行完毕后返回一个 ModelAndView 给 DispatcherServlet。
-- View resolver：视图解析器。将逻辑视图解析成为真正的视图，
+- View Resolver：视图解析器。将ModelAndView 解析，最后返回 View
 - View：转交给前端渲染的视图
 
 ### SpringMVC的工作流程
