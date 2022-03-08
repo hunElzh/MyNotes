@@ -383,7 +383,7 @@ public class getProxyClass {
 
 
 
-### 通过代理Class获取增强代码！
+### 通过代理Class插入增强代码！
 
 > 结论：增强代码编写在 InvocationHandler.invoke() 方法之中，并且在 invoke() 方法之中指定增强的目标对象.
 
